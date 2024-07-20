@@ -64,13 +64,13 @@ int main() {
       // beatsPerMinute
       cJSON *beatsPerMinute = cJSON_GetObjectItem(root, "beatsPerMinute");
       if (key != NULL) {
-        int min = 30;
-        int max = 300;
-        int number = (rand() % (min - max + 1)) + min;
+        int number = (rand() % (30 - 300 + 1)) + 30;
         cJSON_SetNumberValue(beatsPerMinute, number);
       }
 
-      // instruments -> type
+      // need to fix intruments to randomize based on type or it makes jsons that just won't work for beepbox
+
+      // instruments
       cJSON *channels = cJSON_GetObjectItem(root, "channels");
       if (channels != NULL && cJSON_IsArray(channels)) {
         printf("Channels found\n");
@@ -82,45 +82,86 @@ int main() {
               printf("Processing channel %d\n", j);
               cJSON *instruments = cJSON_GetObjectItem(channel, "instruments");
               if (instruments != NULL) {
-                printf("Instruments array found in channel %d\n", j);
-                const char *instruments_list[] = {
-                "chip",
-                "FM",
-                "noise",
-                "spectrum",
-                "drumset",
-                "harmonics",
-                "pwn",
-                "pickedString",
-                "supersaw"
-                };
-                  int random_instrument = rand() % (sizeof(instruments_list) / sizeof(instruments_list[0]));
                   int instruments_count = cJSON_GetArraySize(instruments);
                   printf("Number of instruments: %d\n", instruments_count);
                   for (int i = 0; i < instruments_count; ++i) {
                       cJSON *instrument = cJSON_GetArrayItem(instruments, i);
                       if (instrument != NULL) {
-                          cJSON *type = cJSON_GetObjectItem(instrument, "type");
-                          if (type != NULL) {
-                              printf("New type set: %s\n", instruments_list[random_instrument]);
-                              cJSON_SetValuestring(type, instruments_list[random_instrument]);
+
+                          //chord
+                          const char *chords_list[] = {
+                            "harmony",
+                            "strum",
+                            "arpeggio",
+                            "chord",
+                            "arpeggio_straight"
+                          };
+                          int random_chord = rand() % (sizeof(chords_list) / sizeof(chords_list[0]));
+                          cJSON *chord = cJSON_GetObjectItem(instrument, "chord");
+                          if (chord != NULL) {
+                            printf("New chord set: %s\n", chords_list[random_chord]);
+                            cJSON_SetValuestring(chord, chords_list[random_chord]);
                           }
+
+                          // volume
+                          cJSON *volume = cJSON_GetObjectItem(instrument, "volume");
+                          if (volume != NULL) {
+                            int random_volume = (rand() % (30 - 100 + 1)) + 30;
+                            cJSON_SetNumberValue(volume, random_volume);
+                          }
+
+                          //noteFilter
+                          cJSON *noteFilter = cJSON_GetObjectItem(instrument, "noteFilter");
+                          if (noteFilter != NULL) {
+                            //type
+                            const char *noteFilter_types_list[] = {
+                            "low-pass",
+                            "high-pass",
+                            "band-pass",
+                            "notch"
+                            };
+                            cJSON *noteFilter_type = cJSON_GetObjectItem(noteFilter, "type");
+                            int random_noteFilter_type = rand() % (sizeof(noteFilter_types_list) / sizeof(noteFilter_types_list[0]));
+                            printf("New noteFilter type set: %s\n", noteFilter_types_list[random_noteFilter_type]);
+                            cJSON_SetValuestring(noteFilter_type, noteFilter_types_list[random_noteFilter_type]);
+                            
+                            //cutoffHz
+                            cJSON *noteFilter_cutoffHz = cJSON_GetObjectItem(noteFilter, "cutoffHz");
+                            int random_HZ = (rand() % (20 - 20000 + 1)) + 20;
+                            float random_HZ_float = (rand() % 100) / 100.0;
+                            float HZ = random_HZ + random_HZ_float;
+                            printf("New noteFilter cutoffHz set: %.2f\n", HZ);
+                            cJSON_SetNumberValue(noteFilter_cutoffHz, HZ);
+
+                            //linearGain
+                            cJSON *noteFilter_linearGain = cJSON_GetObjectItem(noteFilter, "linearGain");
+                            float random_linearGain = (rand() % 10) / 10.0;
+                            printf("New noteFilter linearGain set: %.1f\n", random_linearGain);
+                            cJSON_SetNumberValue(noteFilter_linearGain, random_linearGain);
+                          }
+                          
+                          // chorus
+                          cJSON *chorus = cJSON_GetObjectItem(instrument, "chorus");
+                          if (chorus != NULL) {
+                            int random_chorus = (rand() % (1 - 100 + 1)) + 1;
+                            printf("New chorus set: %d\n", random_chorus);
+                            cJSON_SetNumberValue(chorus, random_chorus);
+                          }
+
+                          // reverb
+                          cJSON *reverb = cJSON_GetObjectItem(instrument, "reverb");
+                          if (reverb != NULL) {
+                            int random_reverb = (rand() % (1 - 100 + 1)) + 1;
+                            printf("New reverb set: %d\n", random_reverb);
+                            cJSON_SetNumberValue(reverb, random_reverb);
+                          }
+
                       }
                   }
                }
             }
          }
       }
-
-      // chord
-
-      // noteFilter -> all
-
-      // volume
-
-      // chorus
-
-      // reverb
 
       // edit pitches by tick
 

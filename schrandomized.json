@@ -2,29 +2,29 @@
 	"format":	"BeepBox",
 	"version":	9,
 	"scale":	"expert",
-	"key":	"D#",
+	"key":	"F",
 	"introBars":	0,
 	"loopBars":	19,
 	"beatsPerBar":	8,
 	"ticksPerBeat":	4,
-	"beatsPerMinute":	111,
+	"beatsPerMinute":	106,
 	"layeredInstruments":	false,
 	"patternInstruments":	false,
 	"channels":	[{
 			"type":	"pitch",
 			"instruments":	[{
-					"type":	"pickedString",
-					"volume":	80,
+					"type":	"FM",
+					"volume":	47,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "chorus", "reverb"],
-					"chord":	"strum",
+					"chord":	"harmony",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	6727.17,
 							"linearGain":	0.5
 						}],
-					"chorus":	67,
-					"reverb":	33,
+					"chorus":	1,
+					"reverb":	71,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	48,
 					"algorithm":	"(1 2 3)←4",
@@ -1628,8 +1628,8 @@
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
-					"type":	"noise",
-					"volume":	80,
+					"type":	"harmonics",
+					"volume":	79,
 					"eqFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	2000,
@@ -1638,8 +1638,8 @@
 					"preset":	834,
 					"effects":	["vibrato", "chorus", "reverb"],
 					"vibrato":	"delayed",
-					"chorus":	100,
-					"reverb":	33,
+					"chorus":	98,
+					"reverb":	18,
 					"fadeInSeconds":	0.0263,
 					"fadeOutTicks":	-3,
 					"harmonics":	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -2608,17 +2608,17 @@
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
-					"type":	"supersaw",
-					"volume":	80,
+					"type":	"harmonics",
+					"volume":	90,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "reverb"],
-					"chord":	"arpeggio",
+					"chord":	"strum",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	3363.59,
 							"linearGain":	0.5
 						}],
-					"reverb":	33,
+					"reverb":	75,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	-3,
 					"harmonics":	[86, 100, 100, 100, 86, 57, 86, 100, 100, 100, 71, 57, 43, 71, 86, 71, 57, 57, 71, 71, 71, 71, 57, 57, 57, 57, 57, 43],
@@ -3369,8 +3369,8 @@
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
-					"type":	"drumset",
-					"volume":	80,
+					"type":	"chip",
+					"volume":	65,
 					"eqFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	6727.17,
@@ -3378,7 +3378,7 @@
 						}],
 					"effects":	["transition type", "chord type", "note filter", "bitcrusher", "chorus", "reverb"],
 					"transition":	"slide",
-					"chord":	"simultaneous",
+					"chord":	"chord",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	594.6,
@@ -3386,8 +3386,8 @@
 						}],
 					"bitcrusherOctave":	1,
 					"bitcrusherQuantization":	14,
-					"chorus":	67,
-					"reverb":	67,
+					"chorus":	56,
+					"reverb":	90,
 					"fadeInSeconds":	0.0263,
 					"fadeOutTicks":	-3,
 					"wave":	"double pulse",
@@ -3698,10 +3698,10 @@
 			"type":	"drum",
 			"instruments":	[{
 					"type":	"spectrum",
-					"volume":	80,
+					"volume":	57,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "echo", "reverb"],
-					"chord":	"strum",
+					"chord":	"arpeggio_straight",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	9513.66,
@@ -3709,7 +3709,7 @@
 						}],
 					"echoSustain":	43,
 					"echoDelayBeats":	1,
-					"reverb":	33,
+					"reverb":	67,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	48,
 					"spectrum":	[29, 43, 86, 43, 43, 43, 43, 43, 100, 29, 14, 14, 100, 14, 14, 0, 0, 0, 0, 0, 14, 29, 29, 14, 0, 0, 14, 29, 0, 0],
@@ -4597,16 +4597,16 @@
 		}, {
 			"type":	"drum",
 			"instruments":	[{
-					"type":	"supersaw",
-					"volume":	80,
+					"type":	"drumset",
+					"volume":	74,
 					"eqFilter":	[{
 							"type":	"peak",
 							"cutoffHz":	9513.66,
 							"linearGain":	4
 						}],
 					"effects":	["chorus", "reverb"],
-					"chorus":	100,
-					"reverb":	33,
+					"chorus":	29,
+					"reverb":	89,
 					"drums":	[{
 							"filterEnvelope":	"twang 1",
 							"spectrum":	[57, 71, 71, 86, 86, 86, 71, 71, 71, 71, 57, 57, 57, 57, 43, 43, 43, 43, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29]
