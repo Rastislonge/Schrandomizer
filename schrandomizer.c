@@ -155,19 +155,61 @@ int main() {
                             printf("New reverb set: %d\n", random_reverb);
                             cJSON_SetNumberValue(reverb, random_reverb);
                           }
-
+                          //spectrum
+                          cJSON *spectrums = cJSON_GetObjectItem(instrument, "spectrum");
+                          if (spectrums != NULL) {
+                            int spectrum_count = cJSON_GetArraySize(spectrums);
+                            printf("Number of spectrum: %d\n", spectrum_count);
+                            for (int i = 0; i < spectrum_count; ++i) {
+                              cJSON *spectrum = cJSON_GetArrayItem(spectrums, i);
+                              if (spectrum != NULL) {
+                                int random_spectrum = (rand() % (1 - 100 + 1)) + 1;
+                                printf("New spectrum set: %d\n", random_spectrum);
+                                cJSON_SetNumberValue(spectrum, random_spectrum);
+                          }
+                        }  
                       }
+                    }  
                   }
                }
+               // edit pitches by tick (channels -> patterns -> notes -> pitches)
+               cJSON *patterns = cJSON_GetObjectItem(channel, "patterns");
+               if (patterns != NULL) {
+                 cJSON *notes = cJSON_GetObjectItem(patterns, "notes");
+                 if (notes != NULL) {
+                   cJSON *pitches = cJSON_GetObjectItem(notes, "pitches");
+                   if (pitches != NULL) {
+                     int pitches_count = cJSON_GetArraySize(pitches);
+                     printf("Number of pitches: %d\n", pitches_count);
+                     for (int i = 0; i < pitches_count; ++i) {
+                       cJSON *pitch = cJSON_GetArrayItem(pitches, i);
+                       if (pitch != NULL) {
+                        // random_pitch
+                        int random_pitch = (rand() % (1 - 69 + 1)) + 1;
+                        printf("New pitch set: %d\n", random_pitch);
+                        cJSON_SetNumberValue(pitch, random_pitch);
+                       }
+                     }
+                 }
+               }
             }
+           cJSON *sequences = cJSON_GetObjectItem(channel, "sequence");
+              if (sequences != NULL) {
+                int sequences_count = cJSON_GetArraySize(sequences);
+                printf("Number of sequences: %d\n", sequences_count);
+                for (int i = 0; i < sequences_count; ++i) {
+                  cJSON *sequence = cJSON_GetArrayItem(sequences, i);
+                  if (sequence != NULL) {
+                    // random_sequence
+                    int random_sequence = (rand() % (1 - 10 + 1));
+                    printf("New sequence set: %d\n", random_sequence);
+                    cJSON_SetNumberValue(sequence, random_sequence);
+                    }
+                  }
+                } 
          }
       }
-
-      // edit pitches by tick
-
-      // spectrum
-
-      // sequence
+    }
 
     ////// END OF ELEMENTS TO EDIT //////
 
@@ -205,3 +247,4 @@ int main() {
 // - Add more keys to randomize (there's a lot...)
 // - Add control for which elements to and to not randomize with flags and/or gui
 // - Integrated json to wav/mid/mp3 conversion with BeepBox api(?)
+// - Randomize note placements (ticks)

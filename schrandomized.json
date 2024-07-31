@@ -2,29 +2,29 @@
 	"format":	"BeepBox",
 	"version":	9,
 	"scale":	"expert",
-	"key":	"F",
+	"key":	"F#",
 	"introBars":	0,
 	"loopBars":	19,
 	"beatsPerBar":	8,
 	"ticksPerBeat":	4,
-	"beatsPerMinute":	106,
+	"beatsPerMinute":	193,
 	"layeredInstruments":	false,
 	"patternInstruments":	false,
 	"channels":	[{
 			"type":	"pitch",
 			"instruments":	[{
 					"type":	"FM",
-					"volume":	47,
+					"volume":	72,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "chorus", "reverb"],
-					"chord":	"harmony",
+					"chord":	"chord",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	6727.17,
 							"linearGain":	0.5
 						}],
-					"chorus":	1,
-					"reverb":	71,
+					"chorus":	10,
+					"reverb":	35,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	48,
 					"algorithm":	"(1 2 3)←4",
@@ -1623,13 +1623,13 @@
 								}]
 						}]
 				}],
-			"sequence":	[0, 0, 1, 1, 0, 2, 3, 4, 5, 6, 5, 6, 0, 0, 0, 7, 8, 9, 10],
+			"sequence":	[4, 3, 0, 5, 6, 2, 7, 6, 7, 2, 0, 7, 1, 3, 5, 5, 4, 3, 0],
 			"octaveScrollBar":	3
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
 					"type":	"harmonics",
-					"volume":	79,
+					"volume":	33,
 					"eqFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	2000,
@@ -1638,8 +1638,8 @@
 					"preset":	834,
 					"effects":	["vibrato", "chorus", "reverb"],
 					"vibrato":	"delayed",
-					"chorus":	98,
-					"reverb":	18,
+					"chorus":	38,
+					"reverb":	85,
 					"fadeInSeconds":	0.0263,
 					"fadeOutTicks":	-3,
 					"harmonics":	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -2603,22 +2603,22 @@
 				}, {
 					"notes":	[]
 				}],
-			"sequence":	[0, 0, 1, 1, 2, 0, 0, 0, 3, 4, 3, 4, 0, 0, 0, 5, 6, 7, 8],
+			"sequence":	[1, 7, 1, 1, 0, 7, 7, 0, 3, 2, 0, 0, 0, 2, 0, 7, 1, 2, 7],
 			"octaveScrollBar":	2
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
 					"type":	"harmonics",
-					"volume":	90,
+					"volume":	72,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "reverb"],
-					"chord":	"strum",
+					"chord":	"chord",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	3363.59,
 							"linearGain":	0.5
 						}],
-					"reverb":	75,
+					"reverb":	42,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	-3,
 					"harmonics":	[86, 100, 100, 100, 86, 57, 86, 100, 100, 100, 71, 57, 43, 71, 86, 71, 57, 57, 71, 71, 71, 71, 57, 57, 57, 57, 57, 43],
@@ -3364,13 +3364,13 @@
 				}, {
 					"notes":	[]
 				}],
-			"sequence":	[0, 0, 1, 1, 2, 0, 0, 0, 3, 4, 3, 4, 5, 6, 7, 5, 6, 7, 8],
+			"sequence":	[0, 4, 7, 5, 0, 0, 4, 2, 2, 4, 1, 1, 4, 5, 3, 5, 5, 4, 7],
 			"octaveScrollBar":	0
 		}, {
 			"type":	"pitch",
 			"instruments":	[{
 					"type":	"chip",
-					"volume":	65,
+					"volume":	41,
 					"eqFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	6727.17,
@@ -3378,7 +3378,7 @@
 						}],
 					"effects":	["transition type", "chord type", "note filter", "bitcrusher", "chorus", "reverb"],
 					"transition":	"slide",
-					"chord":	"chord",
+					"chord":	"arpeggio",
 					"noteFilter":	[{
 							"type":	"low-pass",
 							"cutoffHz":	594.6,
@@ -3386,8 +3386,8 @@
 						}],
 					"bitcrusherOctave":	1,
 					"bitcrusherQuantization":	14,
-					"chorus":	56,
-					"reverb":	90,
+					"chorus":	73,
+					"reverb":	33,
 					"fadeInSeconds":	0.0263,
 					"fadeOutTicks":	-3,
 					"wave":	"double pulse",
@@ -3692,13 +3692,13 @@
 				}, {
 					"notes":	[]
 				}],
-			"sequence":	[0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 2, 3, 4, 5, 3, 4, 5, 6],
+			"sequence":	[0, 3, 3, 1, 3, 7, 0, 1, 0, 0, 5, 2, 2, 2, 3, 3, 6, 0, 7],
 			"octaveScrollBar":	0
 		}, {
 			"type":	"drum",
 			"instruments":	[{
 					"type":	"spectrum",
-					"volume":	57,
+					"volume":	51,
 					"eqFilter":	[],
 					"effects":	["chord type", "note filter", "echo", "reverb"],
 					"chord":	"arpeggio_straight",
@@ -3709,10 +3709,10 @@
 						}],
 					"echoSustain":	43,
 					"echoDelayBeats":	1,
-					"reverb":	67,
+					"reverb":	33,
 					"fadeInSeconds":	0,
 					"fadeOutTicks":	48,
-					"spectrum":	[29, 43, 86, 43, 43, 43, 43, 43, 100, 29, 14, 14, 100, 14, 14, 0, 0, 0, 0, 0, 14, 29, 29, 14, 0, 0, 14, 29, 0, 0],
+					"spectrum":	[42, 35, 17, 16, 23, 39, 57, 63, 14, 67, 46, 18, 38, 68, 54, 13, 6, 61, 93, 34, 38, 64, 58, 81, 45, 72, 74, 50, 64, 36],
 					"envelopes":	[{
 							"target":	"noteFilterAllFreqs",
 							"envelope":	"twang 2"
@@ -4593,20 +4593,20 @@
 				}, {
 					"notes":	[]
 				}],
-			"sequence":	[0, 0, 1, 1, 2, 3, 3, 4, 5, 5, 5, 5, 6, 6, 6, 8, 8, 8, 7]
+			"sequence":	[5, 2, 5, 3, 7, 2, 1, 0, 2, 0, 4, 1, 7, 1, 1, 7, 3, 2, 1]
 		}, {
 			"type":	"drum",
 			"instruments":	[{
 					"type":	"drumset",
-					"volume":	74,
+					"volume":	96,
 					"eqFilter":	[{
 							"type":	"peak",
 							"cutoffHz":	9513.66,
 							"linearGain":	4
 						}],
 					"effects":	["chorus", "reverb"],
-					"chorus":	29,
-					"reverb":	89,
+					"chorus":	97,
+					"reverb":	22,
 					"drums":	[{
 							"filterEnvelope":	"twang 1",
 							"spectrum":	[57, 71, 71, 86, 86, 86, 71, 71, 71, 71, 57, 57, 57, 57, 43, 43, 43, 43, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29]
@@ -5268,6 +5268,6 @@
 				}, {
 					"notes":	[]
 				}],
-			"sequence":	[0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 2, 2, 3, 4]
+			"sequence":	[5, 3, 1, 0, 2, 3, 7, 0, 0, 1, 5, 4, 1, 7, 5, 1, 1, 6, 5]
 		}]
 }
