@@ -4,7 +4,55 @@
 #include "cJSON.h"
 #include <time.h>
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    int k = 0, bpm = 0, chrd = 0, vlm = 0, ntFltr_tp = 0, ntFltr_ctoffHz = 0, ntFltr_lnGn = 0, chrs = 0, rvb = 0, spct = 0, ptc = 0, tk = 0, sqc = 0, help = 0;
+
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "--key") == 0) {
+          k = 1;
+        } 
+        else if (strcmp(argv[i], "--beatsPerMinute") == 0) {
+          bpm = 1;
+        }
+        else if (strcmp(argv[i], "--chord") == 0) {
+          chrd = 1;
+        }
+        else if (strcmp(argv[i], "--volume") == 0) {
+          vlm = 1;
+        }
+        else if (strcmp(argv[i], "--noteFilter_type") == 0) {
+          ntFltr_tp = 1;
+        }
+        else if (strcmp(argv[i], "--noteFilter_cutoffHz") == 0) {
+          ntFltr_ctoffHz = 1;
+        }
+        else if (strcmp(argv[i], "--noteFilter_linearGain") == 0) {
+          ntFltr_lnGn = 1;
+        }
+        else if (strcmp(argv[i], "--chorus") == 0) {
+          chrs = 1;
+        }
+        else if (strcmp(argv[i], "--reverb") == 0) {
+          rvb = 1;
+        }
+        else if (strcmp(argv[i], "--spectrum") == 0) {
+          spct = 1;
+        }
+        else if (strcmp(argv[i], "--pitch") == 0) {
+          ptc = 1;
+        }
+        else if (strcmp(argv[i], "--tick") == 0) {
+          tk = 1;
+        }
+        else if (strcmp(argv[i], "--sequence") == 0) {
+          sqc = 1;
+        }
+        else if (strcmp(argv[i], "--help") == 0) {
+          help = 1;
+        }
+    }
+        
 
     srand(time(NULL));
 
@@ -38,9 +86,9 @@ int main() {
 
      ////// ELEMENTS TO EDIT //////
 
-      // Key
+      //key
       cJSON *key = cJSON_GetObjectItem(root, "key");
-      if (key != NULL) {
+      if (key != NULL && k == 1) {
 
         const char *keys[] = {
         "B",
@@ -61,16 +109,16 @@ int main() {
         cJSON_SetValuestring(key, keys[random_key]);
       }
 
-      // beatsPerMinute
+      //beatsPerMinute
       cJSON *beatsPerMinute = cJSON_GetObjectItem(root, "beatsPerMinute");
-      if (key != NULL) {
+      if (beatsPerMinute != NULL && bpm == 1) {
         int number = (rand() % (30 - 300 + 1)) + 30;
         cJSON_SetNumberValue(beatsPerMinute, number);
       }
 
       // need to fix intruments to randomize based on type or it makes jsons that just won't work for beepbox
 
-      // instruments
+      //instruments
       cJSON *channels = cJSON_GetObjectItem(root, "channels");
       if (channels != NULL && cJSON_IsArray(channels)) {
         printf("Channels found\n");
@@ -86,7 +134,7 @@ int main() {
                   printf("Number of instruments: %d\n", instruments_count);
                   for (int i = 0; i < instruments_count; ++i) {
                       cJSON *instrument = cJSON_GetArrayItem(instruments, i);
-                      if (instrument != NULL) {
+                      if (instrument != NULL && chrd == 1) {
 
                           //chord
                           const char *chords_list[] = {
@@ -103,9 +151,9 @@ int main() {
                             cJSON_SetValuestring(chord, chords_list[random_chord]);
                           }
 
-                          // volume
+                          //volume
                           cJSON *volume = cJSON_GetObjectItem(instrument, "volume");
-                          if (volume != NULL) {
+                          if (volume != NULL && vlm == 1) {
                             int random_volume = (rand() % (30 - 100 + 1)) + 30;
                             cJSON_SetNumberValue(volume, random_volume);
                           }
@@ -113,51 +161,56 @@ int main() {
                           //noteFilter
                           cJSON *noteFilter = cJSON_GetObjectItem(instrument, "noteFilter");
                           if (noteFilter != NULL) {
-                            //type
-                            const char *noteFilter_types_list[] = {
-                            "low-pass",
-                            "high-pass",
-                            "band-pass",
-                            "notch"
-                            };
-                            cJSON *noteFilter_type = cJSON_GetObjectItem(noteFilter, "type");
-                            int random_noteFilter_type = rand() % (sizeof(noteFilter_types_list) / sizeof(noteFilter_types_list[0]));
-                            printf("New noteFilter type set: %s\n", noteFilter_types_list[random_noteFilter_type]);
-                            cJSON_SetValuestring(noteFilter_type, noteFilter_types_list[random_noteFilter_type]);
-                            
+                             //type
+                            if (ntFltr_tp == 1) {
+                              const char *noteFilter_types_list[] = {
+                              "low-pass",
+                              "high-pass",
+                              "band-pass",
+                              "notch"
+                              };
+                              cJSON *noteFilter_type = cJSON_GetObjectItem(noteFilter, "type");
+                              int random_noteFilter_type = rand() % (sizeof(noteFilter_types_list) / sizeof(noteFilter_types_list[0]));
+                              printf("New noteFilter type set: %s\n", noteFilter_types_list[random_noteFilter_type]);
+                              cJSON_SetValuestring(noteFilter_type, noteFilter_types_list[random_noteFilter_type]);
+                            } 
                             //cutoffHz
-                            cJSON *noteFilter_cutoffHz = cJSON_GetObjectItem(noteFilter, "cutoffHz");
-                            int random_HZ = (rand() % (20 - 20000 + 1)) + 20;
-                            float random_HZ_float = (rand() % 100) / 100.0;
-                            float HZ = random_HZ + random_HZ_float;
-                            printf("New noteFilter cutoffHz set: %.2f\n", HZ);
-                            cJSON_SetNumberValue(noteFilter_cutoffHz, HZ);
-
+                            if (ntFltr_ctoffHz == 1) {
+                              cJSON *noteFilter_cutoffHz = cJSON_GetObjectItem(noteFilter, "cutoffHz");
+                              int random_HZ = (rand() % (20 - 20000 + 1)) + 20;
+                              float random_HZ_float = (rand() % 100) / 100.0;
+                              float HZ = random_HZ + random_HZ_float;
+                              printf("New noteFilter cutoffHz set: %.2f\n", HZ);
+                              cJSON_SetNumberValue(noteFilter_cutoffHz, HZ);
+                            }
                             //linearGain
-                            cJSON *noteFilter_linearGain = cJSON_GetObjectItem(noteFilter, "linearGain");
-                            float random_linearGain = (rand() % 10) / 10.0;
-                            printf("New noteFilter linearGain set: %.1f\n", random_linearGain);
-                            cJSON_SetNumberValue(noteFilter_linearGain, random_linearGain);
+                            if (ntFltr_lnGn == 1) {
+                              cJSON *noteFilter_linearGain = cJSON_GetObjectItem(noteFilter, "linearGain");
+                              float random_linearGain = (rand() % 10) / 10.0;
+                              printf("New noteFilter linearGain set: %.1f\n", random_linearGain);
+                              cJSON_SetNumberValue(noteFilter_linearGain, random_linearGain);
+                            }
                           }
                           
-                          // chorus
+                          //chorus
                           cJSON *chorus = cJSON_GetObjectItem(instrument, "chorus");
-                          if (chorus != NULL) {
+                          if (chorus != NULL && chrs == 1) {
                             int random_chorus = (rand() % (1 - 100 + 1)) + 1;
                             printf("New chorus set: %d\n", random_chorus);
                             cJSON_SetNumberValue(chorus, random_chorus);
                           }
 
-                          // reverb
+                          //reverb
                           cJSON *reverb = cJSON_GetObjectItem(instrument, "reverb");
-                          if (reverb != NULL) {
+                          if (reverb != NULL && rvb == 1) {
                             int random_reverb = (rand() % (1 - 100 + 1)) + 1;
                             printf("New reverb set: %d\n", random_reverb);
                             cJSON_SetNumberValue(reverb, random_reverb);
                           }
+
                           //spectrum
                           cJSON *spectrums = cJSON_GetObjectItem(instrument, "spectrum");
-                          if (spectrums != NULL) {
+                          if (spectrums != NULL && spct == 1) {
                             int spectrum_count = cJSON_GetArraySize(spectrums);
                             printf("Number of spectrum: %d\n", spectrum_count);
                             for (int i = 0; i < spectrum_count; ++i) {
@@ -172,35 +225,70 @@ int main() {
                     }  
                   }
                }
-               // edit pitches by tick (channels -> patterns -> notes -> pitches)
+               //edit pitches by tick (channels -> patterns -> notes -> pitches)
                cJSON *patterns = cJSON_GetObjectItem(channel, "patterns");
                if (patterns != NULL) {
-                 cJSON *notes = cJSON_GetObjectItem(patterns, "notes");
-                 if (notes != NULL) {
-                   cJSON *pitches = cJSON_GetObjectItem(notes, "pitches");
-                   if (pitches != NULL) {
-                     int pitches_count = cJSON_GetArraySize(pitches);
-                     printf("Number of pitches: %d\n", pitches_count);
-                     for (int i = 0; i < pitches_count; ++i) {
-                       cJSON *pitch = cJSON_GetArrayItem(pitches, i);
-                       if (pitch != NULL) {
-                        // random_pitch
-                        int random_pitch = (rand() % (1 - 69 + 1)) + 1;
-                        printf("New pitch set: %d\n", random_pitch);
-                        cJSON_SetNumberValue(pitch, random_pitch);
-                       }
-                     }
-                 }
-               }
+                //printf("Found patterns\n");
+                 int patterns_count = cJSON_GetArraySize(patterns);
+                 //printf("Number of patterns: %d\n", patterns_count);
+                 for (int i = 0; i < patterns_count; ++i) {
+                  cJSON *pattern = cJSON_GetArrayItem(patterns, i);
+                  if (pattern != NULL) {
+                    //printf("Processing pattern: %d\n", i);
+                    cJSON *notes = cJSON_GetObjectItem(pattern, "notes");
+                    if (notes != NULL) {
+                      //printf("Found notes\n");
+                      int notes_count = cJSON_GetArraySize(notes);
+                      //printf("Number of notes: %d\n", patterns_count);
+                      for (int i = 0; i < notes_count; ++i) {
+                       cJSON *note = cJSON_GetArrayItem(notes, i);
+                       if (note != NULL) {
+                        printf("Processing note: %d\n", i);
+                        cJSON *pitches = cJSON_GetObjectItem(note, "pitches");
+                        if (pitches != NULL && ptc == 1) {
+                          //printf("Found pitches\n");
+                          int pitches_count = cJSON_GetArraySize(pitches);
+                          //printf("Number of pitches: %d\n", pitches_count);
+                          for (int i = 0; i < pitches_count; ++i) {
+                            cJSON *pitch = cJSON_GetArrayItem(pitches, i);
+                            if (pitch != NULL) {
+                              // random_pitch
+                              int random_pitch = (rand() % (1 - 69 + 1)) + 1;
+                              //printf("New pitch set: %d\n", random_pitch);
+                              cJSON_SetNumberValue(pitch, random_pitch);
+                            }
+                          }
+                        }
+                      //ticks
+                      cJSON *points = cJSON_GetObjectItem(note, "points");
+                      if (points != NULL && tk == 1) {
+                        int points_count = cJSON_GetArraySize(points);
+                        printf("Number of points: %d\n", points_count);
+                        for (int i = 0; i < points_count; ++i) {
+                          cJSON *point = cJSON_GetArrayItem(points, i);
+                          if (point != NULL && cJSON_IsObject(point)) {
+                          int random_tick = (rand() % (32 / 2 + 1)) * 2;
+                          cJSON *tick = cJSON_GetObjectItem(point, "tick");
+                          printf("New tick set: %d\n", random_tick);
+                          cJSON_SetNumberValue(tick, random_tick);
+                         }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
+           }
+           //sequence 
            cJSON *sequences = cJSON_GetObjectItem(channel, "sequence");
-              if (sequences != NULL) {
+              if (sequences != NULL && sqc == 1) {
                 int sequences_count = cJSON_GetArraySize(sequences);
                 printf("Number of sequences: %d\n", sequences_count);
                 for (int i = 0; i < sequences_count; ++i) {
                   cJSON *sequence = cJSON_GetArrayItem(sequences, i);
                   if (sequence != NULL) {
-                    // random_sequence
+                    //random_sequence
                     int random_sequence = (rand() % (1 - 10 + 1));
                     printf("New sequence set: %d\n", random_sequence);
                     cJSON_SetNumberValue(sequence, random_sequence);
@@ -213,6 +301,9 @@ int main() {
 
     ////// END OF ELEMENTS TO EDIT //////
 
+      if (help == 1) {
+        printf("--key: enable key schrandomization\n--beatsPerMinute: enable bpm schrandomization\n--chord: enable chord schrandomization\n--volume: enable volume schrandomization\n--noteFilter_type: enable the notefilter's type schrandomization\n--noteFilter_cutoffHz: enable the notefilter's herz limit schrandomization\n--noteFilter_linearGain: enable the notefilter's linear gain schrandomization\n--chorus: enable chorus schrandomization\n--reverb: enable reverb schrandomization\n--pitch: enable pitch schrandomization\n--tick: enable tick schrandomization\n--sequence: enable sequence schrandomization");
+      }
 
 
       // Convert the cJSON object back to a JSON string
@@ -237,14 +328,11 @@ int main() {
       // Clean up
       cJSON_Delete(root);
       free(modified_json_string);
-      free(fp);
     }
 
     return 0;
 }
 
 // TODO
-// - Add more keys to randomize (there's a lot...)
-// - Add control for which elements to and to not randomize with flags and/or gui
-// - Integrated json to wav/mid/mp3 conversion with BeepBox api(?)
-// - Randomize note placements (ticks)
+// - Remove unnecessary print statements
+// - Ensure all the functionalities work correctly.. (bpm was wrong since like the start)
