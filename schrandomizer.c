@@ -334,5 +334,6 @@ int main(int argc, char *argv[]) {
 }
 
 // TODO
+// - Fix the help statement not showing up
 // - Remove unnecessary print statements
 // - Ensure all the functionalities work correctly.. (bpm was wrong since like the start)
