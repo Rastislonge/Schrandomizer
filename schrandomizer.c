@@ -6,82 +6,34 @@
 
 int main(int argc, char *argv[]) {
 
-    int k = 0, bpm = 0, chrd = 0, vlm = 0, ntFltr_tp = 0, ntFltr_ctoffHz = 0, ntFltr_lnGn = 0, chrs = 0, rvb = 0, spct = 0, ptc = 0, tk = 0, sqc = 0, help = 0;
+    int k = 1, bpm = 1, chrd = 1, vlm = 1, ntFltr_tp = 1, ntFltr_ctoffHz = 1, ntFltr_lnGn = 1, chrs = 1, rvb = 1, spct = 1, ptc = 1, tk = 1, sqc = 1;
     char *file_path = NULL;
 
-    for (int i = 1; i < argc; ++i) { 
-        if (strcmp(argv[i], "--key") == 0) {
-          k = 1;
-        } 
-        else if (strcmp(argv[i], "--beatsPerMinute") == 0) {
-          bpm = 1;
-        }
-        else if (strcmp(argv[i], "--chord") == 0) {
-          chrd = 1;
-        }
-        else if (strcmp(argv[i], "--volume") == 0) {
-          vlm = 1;
-        }
-        else if (strcmp(argv[i], "--noteFilter_type") == 0) {
-          ntFltr_tp = 1;
-        }
-        else if (strcmp(argv[i], "--noteFilter_cutoffHz") == 0) {
-          ntFltr_ctoffHz = 1;
-        }
-        else if (strcmp(argv[i], "--noteFilter_linearGain") == 0) {
-          ntFltr_lnGn = 1;
-        }
-        else if (strcmp(argv[i], "--chorus") == 0) {
-          chrs = 1;
-        }
-        else if (strcmp(argv[i], "--reverb") == 0) {
-          rvb = 1;
-        }
-        else if (strcmp(argv[i], "--spectrum") == 0) {
-          spct = 1;
-        }
-        else if (strcmp(argv[i], "--pitch") == 0) {
-          ptc = 1;
-        }
-        else if (strcmp(argv[i], "--tick") == 0) {
-          tk = 1;
-        }
-        else if (strcmp(argv[i], "--sequence") == 0) {
-          sqc = 1;
-        }
-        else if (strcmp(argv[i], "--all") == 0) {
-          k = 1;
-          bpm = 1;
-          chrd = 1;
-          vlm = 1;
-          ntFltr_tp = 1;
-          ntFltr_ctoffHz = 1;
-          ntFltr_lnGn = 1;
-          chrs = 1;
-          rvb = 1;
-          spct = 1;
-          ptc = 1;
-          tk = 1;
-          sqc = 1;
-        }
-        else if (strcmp(argv[i], "--help") == 0) {
-          help = 1;
-          break;
-        }
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "--key") == 0) k = 1;
+        else if (strcmp(argv[i], "--beatsPerMinute") == 0) bpm = 1;
+        else if (strcmp(argv[i], "--chord") == 0) chrd = 1;
+        else if (strcmp(argv[i], "--volume") == 0) vlm = 1;
+        else if (strcmp(argv[i], "--noteFilter_type") == 0) ntFltr_tp = 1;
+        else if (strcmp(argv[i], "--noteFilter_cutoffHz") == 0) ntFltr_ctoffHz = 1;
+        else if (strcmp(argv[i], "--noteFilter_linearGain") == 0) ntFltr_lnGn = 1;
+        else if (strcmp(argv[i], "--chorus") == 0) chrs = 1;
+        else if (strcmp(argv[i], "--reverb") == 0) rvb = 1;
+        else if (strcmp(argv[i], "--spectrum") == 0) spct = 1;
+        else if (strcmp(argv[i], "--pitch") == 0) ptc = 1;
+        else if (strcmp(argv[i], "--tick") == 0) tk = 1;
+        else if (strcmp(argv[i], "--sequence") == 0) sqc = 1;
+        else if (strcmp(argv[i], "--all") == 0) { k = bpm = chrd = vlm = ntFltr_tp = ntFltr_ctoffHz = ntFltr_lnGn = chrs = rvb = spct = ptc = tk = sqc = 1; }
+        else if (strcmp(argv[i], "--help") == 0) { printf("-----------------------------Schrandomizer usage-----------------------------\n--key: enable key schrandomization\n--beatsPerMinute: enable bpm schrandomization\n--chord: enable chord schrandomization\n--volume: enable volume schrandomization\n--noteFilter_type: enable the notefilter's type schrandomization\n--noteFilter_cutoffHz: enable the notefilter's herz limit schrandomization\n--noteFilter_linearGain: enable the notefilter's linear gain schrandomization\n--chorus: enable chorus schrandomization\n--reverb: enable reverb schrandomization\n--spectrum: enable spectrum schrandomization\n--pitch: enable pitch schrandomization\n--tick: enable tick schrandomization\n--sequence: enable sequence schrandomization\n--all: for the ultimate schrandomization experience\n\nExample usage: ./schrandomizer (or schrandomizer.exe on windows) --all base.json\n-----------------------------------------------------------------------------"); return 0; }
+
         else {
           file_path = argv[i];
         }
     }
 
-    //display help message
-    if (help) {
-        printf("-----------------------------Schrandomizer usage-----------------------------\n--key: enable key schrandomization\n--beatsPerMinute: enable bpm schrandomization\n--chord: enable chord schrandomization\n--volume: enable volume schrandomization\n--noteFilter_type: enable the notefilter's type schrandomization\n--noteFilter_cutoffHz: enable the notefilter's herz limit schrandomization\n--noteFilter_linearGain: enable the notefilter's linear gain schrandomization\n--chorus: enable chorus schrandomization\n--reverb: enable reverb schrandomization\n--spectrum: enable spectrum schrandomization\n--pitch: enable pitch schrandomization\n--tick: enable tick schrandomization\n--sequence: enable sequence schrandomization\n--all: for the ultimate schrandomization experience\n\nExample usage: ./schrandomizer --all base.json\n-----------------------------------------------------------------------------");
-        return 0;
-      }   
-
     //check for file param
     if (file_path == NULL) {
-        fprintf(stderr, "No file path provided.\n\nExample usage: ./schrandomizer --all base.json\n\nRun ./schrandomizer --help for more info.");
+        fprintf(stderr, "No file path provided.\n\nExample usage to randomize all params: ./schrandomizer (or schrandomizer.exe on windows) base.json\n\nRun ./schrandomizer (or schrandomizer.exe on windows) --help for more info.");
         return 1;
     } 
 
