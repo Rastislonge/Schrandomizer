@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 
     //check for file param
     if (file_path == NULL) {
-        fprintf(stderr, "No file path provided.\n");
+        fprintf(stderr, "No file path provided.\n\nExample usage: ./schrandomizer --all base.json\n\nRun ./schrandomizer --help for more info.");
         return 1;
     } 
 
