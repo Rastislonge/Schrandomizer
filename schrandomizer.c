@@ -6,67 +6,80 @@
 
 int main(int argc, char *argv[]) {
 
-    int k = 0, bpm = 0, chrd = 0, vlm = 0, ntFltr_tp = 0, ntFltr_ctoffHz = 0, ntFltr_lnGn = 0, chrs = 0, rvb = 0, spct = 0, ptc = 0, tk = 0, sqc = 0, help = 0;
+    int output = 0, k = 0, bpm = 0, chrd = 0, vlm = 0, ntFltr_tp = 0, ntFltr_ctoffHz = 0, ntFltr_lnGn = 0, chrs = 0, rvb = 0, spct = 0, ptc = 0, tk = 0, sqc = 0, help = 0;
     char *file_path = NULL;
+    char *output_file = "schrandomized.json";
 
-    for (int i = 1; i < argc; ++i) { 
-        if (strcmp(argv[i], "--key") == 0) {
-          k = 1;
+        for (int i = 1; i < argc; ++i) { 
+        if (strcmp(argv[i], "--output") == 0) {
+            if (i + 1 < argc && argv[i + 1][0] != '-') { // Check if the next argument is not another option
+                output_file = argv[i + 1];
+                i++; // Skip the next argument as it has been consumed as the output file
+            } else {
+                printf("Error: --output requires a file name.\n");
+                return 1;
+            }
+        }
+        else if (strcmp(argv[i], "--key") == 0) {
+            k = 1;
         } 
         else if (strcmp(argv[i], "--beatsPerMinute") == 0) {
-          bpm = 1;
+            bpm = 1;
         }
         else if (strcmp(argv[i], "--chord") == 0) {
-          chrd = 1;
+            chrd = 1;
         }
         else if (strcmp(argv[i], "--volume") == 0) {
-          vlm = 1;
+            vlm = 1;
         }
         else if (strcmp(argv[i], "--noteFilter_type") == 0) {
-          ntFltr_tp = 1;
+            ntFltr_tp = 1;
         }
         else if (strcmp(argv[i], "--noteFilter_cutoffHz") == 0) {
-          ntFltr_ctoffHz = 1;
+            ntFltr_ctoffHz = 1;
         }
         else if (strcmp(argv[i], "--noteFilter_linearGain") == 0) {
-          ntFltr_lnGn = 1;
+            ntFltr_lnGn = 1;
         }
         else if (strcmp(argv[i], "--chorus") == 0) {
-          chrs = 1;
+            chrs = 1;
         }
         else if (strcmp(argv[i], "--reverb") == 0) {
-          rvb = 1;
+            rvb = 1;
         }
         else if (strcmp(argv[i], "--spectrum") == 0) {
-          spct = 1;
+            spct = 1;
         }
         else if (strcmp(argv[i], "--pitch") == 0) {
-          ptc = 1;
+            ptc = 1;
         }
         else if (strcmp(argv[i], "--tick") == 0) {
-          tk = 1;
+            tk = 1;
         }
         else if (strcmp(argv[i], "--sequence") == 0) {
-          sqc = 1;
+            sqc = 1;
         }
         else if (strcmp(argv[i], "--all") == 0) {
-          k = 1;
-          bpm = 1;
-          chrd = 1;
-          vlm = 1;
-          ntFltr_tp = 1;
-          ntFltr_ctoffHz = 1;
-          ntFltr_lnGn = 1;
-          chrs = 1;
-          rvb = 1;
-          spct = 1;
-          ptc = 1;
-          tk = 1;
-          sqc = 1;
+            k = 1;
+            bpm = 1;
+            chrd = 1;
+            vlm = 1;
+            ntFltr_tp = 1;
+            ntFltr_ctoffHz = 1;
+            ntFltr_lnGn = 1;
+            chrs = 1;
+            rvb = 1;
+            spct = 1;
+            ptc = 1;
+            tk = 1;
+            sqc = 1;
         }
-        else if (strcmp(argv[i], "--help") == 0) { printf("-----------------------------Schrandomizer usage-----------------------------\nUSING NO PARAMS WILL RESULT IN NO CHANGES\n\n--key: enable key schrandomization\n--beatsPerMinute: enable bpm schrandomization\n--chord: enable chord schrandomization\n--volume: enable volume schrandomization\n--noteFilter_type: enable the notefilter's type schrandomization\n--noteFilter_cutoffHz: enable the notefilter's herz limit schrandomization\n--noteFilter_linearGain: enable the notefilter's linear gain schrandomization\n--chorus: enable chorus schrandomization\n--reverb: enable reverb schrandomization\n--spectrum: enable spectrum schrandomization\n--pitch: enable pitch schrandomization\n--tick: enable tick schrandomization\n--sequence: enable sequence schrandomization\n--all: for the ultimate schrandomization experience\n\nExample usage: ./schrandomizer (or schrandomizer.exe on windows) --all base.json\n-----------------------------------------------------------------------------"); return 0; }
+        else if (strcmp(argv[i], "--help") == 0) { 
+            printf("-----------------------------Schrandomizer usage-----------------------------\nUSING NO PARAMS WILL RESULT IN NO CHANGES\n\n--output: define an output file (default is schrandomized.json)\n--key: enable key schrandomization\n--beatsPerMinute: enable bpm schrandomization\n--chord: enable chord schrandomization\n--volume: enable volume schrandomization\n--noteFilter_type: enable the notefilter's type schrandomization\n--noteFilter_cutoffHz: enable the notefilter's herz limit schrandomization\n--noteFilter_linearGain: enable the notefilter's linear gain schrandomization\n--chorus: enable chorus schrandomization\n--reverb: enable reverb schrandomization\n--spectrum: enable spectrum schrandomization\n--pitch: enable pitch schrandomization\n--tick: enable tick schrandomization\n--sequence: enable sequence schrandomization\n--all: for the ultimate schrandomization experience\n\nExample usage: ./schrandomizer (or schrandomizer.exe on windows) --all base.json --output myschroit.json\n-----------------------------------------------------------------------------"); 
+            return 0; 
+        }
         else {
-          file_path = argv[i];
+            file_path = argv[i]; // Assume anything else is the input file path
         }
     }
 
@@ -253,6 +266,7 @@ int main(int argc, char *argv[]) {
                  //printf("Number of patterns: %d\n", patterns_count);
                  for (int i = 0; i < patterns_count; ++i) {
                   cJSON *pattern = cJSON_GetArrayItem(patterns, i);
+                  int incr_tick = 0; //Increase tick, restarting at each instrument patterm
                   if (pattern != NULL) {
                     //printf("Processing pattern: %d\n", i);
                     cJSON *notes = cJSON_GetObjectItem(pattern, "notes");
@@ -285,9 +299,10 @@ int main(int argc, char *argv[]) {
                         for (int i = 0; i < points_count; ++i) {
                           cJSON *point = cJSON_GetArrayItem(points, i);
                           if (point != NULL && cJSON_IsObject(point)) {
-                          int random_tick = (rand() % (32 / 2 + 1)) * 2;
+                          int random_incr = ((rand() % 2) + 1) * 2;
+                          incr_tick += random_incr;
                           cJSON *tick = cJSON_GetObjectItem(point, "tick");
-                          cJSON_SetNumberValue(tick, random_tick);
+                          cJSON_SetNumberValue(tick, incr_tick);
                          }
                         }
                       }
@@ -328,7 +343,7 @@ int main(int argc, char *argv[]) {
       //printf("Modified JSON string: %s\n", modified_json_string);
       
       // Save the new json
-      FILE *fp = fopen("schrandomized.json", "w+");
+      FILE *fp = fopen(output_file, "w+");
       if (fp != NULL)
       {
         fputs(modified_json_string, fp);
